@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Create user</title>
@@ -9,14 +8,18 @@
 <form th:action="@{/users}" th:object="${user}" method="POST">
     <label for="name">ИМЯ</label>
     <input type="text" id="name" th:field="*{name}" required>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
     </br>
     <label for="email">ПОЧТА</label>
     <input type="text" id="email" th:field="*{email}" required>
+    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
     </br>
-    <label for="age">ВОЗРОСТ</label>
+    <label for="age">ВОЗРАСТ</label>
     <input type="text" id="age" th:field="*{age}" required>
+    <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
     </br>
     <button type="submit">СОЗДАТЬ</button>
 </form>
+<a href="/users">Назад к списку пользователей</a>
 </body>
 </html>

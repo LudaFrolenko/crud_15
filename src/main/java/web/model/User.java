@@ -5,10 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,11 +19,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is mandatory")
+    @Size(min = 2, max = 30, message = "Имя должно содержать от 2 до 30 символов.")
     @Column(name = "name")
     private String name;
 
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Адрес электронной почты должен быть действительным.")
     @Column(name = "email")
     private String email;
+
+    @NotNull(message = "Age is mandatory")
+    @Min(value = 18, message = "Возраст должен быть не менее 18 лет.")
+    @Max(value = 85, message = "Возраст должен быть не более 85 лет.")
 
     @Column(name = "age")
     private Integer age;

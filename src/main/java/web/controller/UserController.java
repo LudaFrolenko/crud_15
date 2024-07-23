@@ -37,7 +37,10 @@ public class UserController {
     }
 
     @PostMapping
-    public String createUser(@ModelAttribute("user") User user) {
+    public String createUser(@Valid @ModelAttribute("user") User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "create";
+        }
         userService.save(user);
         return "redirect:/users";
     }
@@ -55,7 +58,10 @@ public class UserController {
     }
 
     @PostMapping("/edit")
-    public String editUser(@ModelAttribute("user") User user) {
+    public String editUser(@Valid @ModelAttribute("user") User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "update";
+        }
         userService.updateUser(user);
         return "redirect:/users";
     }
